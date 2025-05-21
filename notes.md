@@ -1,13 +1,12 @@
-# Brainstorming #
+# Progress #
 
 **Currently working on:**
-* choosing custom habits for different websites
-* streak counter
+
 
 **Bugs to fix**
-* on Discord, every time you change the channel, the popup comes
 
 **Possible features to add later:**
+* daily habit or multiple times per day
 * a small calendar to show days where the user completed a habit
 * statistics
 * progress/goals
@@ -19,6 +18,10 @@
 * upload progress photos
 * quantify habits (e.g. how many cups of water, how many pushups done)
 
+**Done**
+* choosing custom habits for different websites
+* streak counter
+* popup comes every time you refresh a website. instead, allow the user to change the frequency
 
 -----------------------------
 

@@ -4,21 +4,28 @@
 <html>
 <head>
   <title>Habit Settings</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    input, button { margin: 5px 0; display: block; width: 100%; }
-    ul { padding: 0; list-style: none; }
-    li { margin: 10px 0; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
-    .row { display: flex; justify-content: space-between; align-items: center; }
-  </style>
+  <link rel="stylesheet" href="config.css">
 </head>
 <body>
   <div>
+    <!-- habit editor-->
     <h2>Customize Habits</h2>
     <label>Website domain (e.g. youtube.com):</label>
     <input type="text" id="domain" placeholder="example.com">
     <label>Habit message:</label>
     <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
+    <label>
+        <input type="checkbox" id="limitPopup">
+        Choose how often popup appears
+    </label>
+    <div id="frequencyControls">
+        <input type="number" id="frequencyValue" min="1" value="1" style="width:60px; display:inline;">
+        <select id="frequencyUnit" style="width:auto;display:inline;">
+            <option value="minutes">minutes</option>
+            <option value="hours">hours</option>
+        </select>
+    <span>between popups</span>
+    </div>
     <button id="save">Save Habit</button>
   </div>
   <div>

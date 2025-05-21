@@ -57,6 +57,11 @@ function loadStreaks() {
   });
 }
 
+// frequency controls
+document.getElementById("limitPopup").addEventListener("change", function() {
+  document.getElementById("frequencyControls").style.display = this.checked ? "block" : "none";
+});
+
 // save new habits
 
 document.getElementById("save").addEventListener("click", () => {
