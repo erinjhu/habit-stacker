@@ -4,6 +4,9 @@
 * choosing custom habits for different websites
 * streak counter
 
+**Bugs to fix**
+* on Discord, every time you change the channel, the popup comes
+
 **Possible features to add later:**
 * a small calendar to show days where the user completed a habit
 * statistics
