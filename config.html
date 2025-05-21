@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Habit Settings</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input, button { margin: 5px 0; display: block; width: 100%; }
+    ul { padding: 0; list-style: none; }
+    li { margin: 10px 0; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+    .row { display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+  <div>
+    <h2>Customize Habits</h2>
+    <label>Website domain (e.g. youtube.com):</label>
+    <input type="text" id="domain" placeholder="example.com">
+    <label>Habit message:</label>
+    <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
+    <button id="save">Save Habit</button>
+  </div>
+  <div>
+    <h3>Saved Habits</h3>
+    <ul id="habitList"></ul>
+  </div>  
+  <script src="config.js"></script>
+  <div>
+    <h2>Progress</h2>
+    
+  </div>
+</body>
+</html>

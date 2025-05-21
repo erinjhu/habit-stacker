@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Habit Stacker",
+  "version": "1.0",
+  "description": "Trigger a custom popup on certain sites.",
+  "permissions": ["tabs", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "options_page": "config.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": "icons/icon.png"
+  }
+}
