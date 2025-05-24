@@ -14,3 +14,23 @@ input[type="checkbox"] {
   width: auto;
   margin-right: 8px;
 }
+.color-btn {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.2s;
+}
+.color-btn.selected {
+  border: 2px solid #333;
+}
+.habit-card {
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  color: #222;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}

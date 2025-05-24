@@ -14,6 +14,7 @@
     <input type="text" id="domain" placeholder="example.com">
     <label>Habit message:</label>
     <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
+    <!-- checkbox and frequency controls-->
     <label>
         <input type="checkbox" id="limitPopup">
         Choose how often popup appears
@@ -26,6 +27,20 @@
         </select>
     <span>between popups</span>
     </div>
+    <!-- color picker-->
+     <div id="colorPicker" style="margin: 10px 0;">
+      <span>Choose color:</span>
+      <button class="color-btn" data-color="#f28b82" style="background:#f28b82;"></button>
+      <button class="color-btn" data-color="#fbbc04" style="background:#fbbc04;"></button>
+      <button class="color-btn" data-color="#fff475" style="background:#fff475;"></button>
+      <button class="color-btn" data-color="#ccff90" style="background:#ccff90;"></button>
+      <button class="color-btn" data-color="#a7ffeb" style="background:#a7ffeb;"></button>
+      <button class="color-btn" data-color="#cbf0f8" style="background:#cbf0f8;"></button>
+      <button class="color-btn" data-color="#aecbfa" style="background:#aecbfa;"></button>
+      <button class="color-btn" data-color="#d7aefb" style="background:#d7aefb;"></button>
+      <input type="hidden" id="habitColor" value="#f28b82">
+    </div>
+    <!-- save habit -->
     <button id="save">Save Habit</button>
   </div>
   <div>

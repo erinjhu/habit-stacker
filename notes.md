@@ -6,6 +6,7 @@
 **Bugs to fix**
 
 **Possible features to add later:**
+* button to quickly disable all habits
 * daily habit or multiple times per day
 * a small calendar to show days where the user completed a habit
 * statistics
@@ -17,6 +18,7 @@
 * features to connect with others
 * upload progress photos
 * quantify habits (e.g. how many cups of water, how many pushups done)
+* habit counter for other things like doing work
 
 **Done**
 * choosing custom habits for different websites
