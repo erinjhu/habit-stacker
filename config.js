@@ -19,6 +19,7 @@ function loadHabits() {
     const list = document.getElementById("habitList");
     list.innerHTML = "";
     Object.entries(habits).forEach(([domain, data]) => {
+      if(domain === "streaks") return;
       // Support old (string) and new (object) formats
       let message, frequency, color;
       if (typeof data === "string") {
