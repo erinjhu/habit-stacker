@@ -15,18 +15,18 @@
     <label>Habit message:</label>
     <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
     <!-- checkbox and frequency controls-->
-    <label>
-        <input type="checkbox" id="limitPopup">
-        Choose how often popup appears
-    </label>
     <div id="frequencyControls">
-        <input type="number" id="frequencyValue" min="1" value="1" style="width:60px; display:inline;">
-        <select id="frequencyUnit" style="width:auto;display:inline;">
-            <option value="minutes">minutes</option>
-            <option value="hours">hours</option>
-        </select>
-    <span>between popups</span>
+      <input type="number" id="frequencyValue" min="1" value="1" style="width:60px; display:inline;">
+      <select id="frequencyUnit" style="width:auto;display:inline;">
+        <option value="minutes">minutes</option>
+        <option value="hours">hours</option>
+      </select>
+      <span>between popups</span>
     </div>
+    <label>
+      <input type="checkbox" id="alwaysShow">
+      Show habit reminder every time I open this site
+    </label>
     <!-- color picker-->
      <div id="colorPicker" style="margin: 10px 0;">
       <span>Choose color:</span>
@@ -47,10 +47,12 @@
     <h3>Saved Habits</h3>
     <ul id="habitList"></ul>
   </div>  
-  <script src="config.js"></script>
+  
   <div>
     <h2>Streaks</h2>
     <ul id="streakList"></ul>
+    <div id="calendarContainer"></div>
   </div>
+  <script src="config.js"></script>
 </body>
 </html>
