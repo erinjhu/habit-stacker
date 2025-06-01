@@ -1,3 +1,6 @@
+let calendarMonth = (new Date()).getMonth();
+let calendarYear = (new Date()).getFullYear();
+
 // Color picker logic
 document.querySelectorAll('.color-btn').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -40,7 +43,11 @@ function loadHabits() {
             <strong>${domain}</strong>: <span class="habit-message">${message}</span>
             <br>
             <small>
-              Limit: ${frequency.value} ${frequency.unit} between popups
+            ${
+              data.limitPopup === false
+                ? "Show habit reminder every time I open this site"
+                : `Limit: ${frequency.value} ${frequency.unit} between popups`
+            }
             </small>
           </div>
           <div>
@@ -171,8 +178,8 @@ function renderCalendar() {
           const dateObj = new Date(dateStr);
           const now = new Date();
           if (
-            dateObj.getFullYear() === now.getFullYear() &&
-            dateObj.getMonth() === now.getMonth()
+            dateObj.getFullYear() === calendarYear &&
+            dateObj.getMonth() === calendarMonth
           ) {
             const key = dateStr.slice(0, 10); // 'YYYY-MM-DD'
             if (!completions[key]) completions[key] = [];
@@ -183,15 +190,28 @@ function renderCalendar() {
     });
 
     // Generate calendar grid for current month
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
+    const year = calendarYear;
+    const month = calendarMonth;
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const numDays = lastDay.getDate();
 
-    let html = `<div class="mini-calendar"><div class="calendar-row calendar-header">`;
-    // Days of week header
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    let html = `
+      <div class="calendar-header-row" style="display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
+        <button id="prevMonth" style="font-size:18px; margin-right:12px;">&#8592;</button>
+        <span style="font-weight:bold; font-size:1.1em; min-width:120px; text-align:center;">
+          ${monthNames[month]} ${year}
+        </span>
+        <button id="nextMonth" style="font-size:18px; margin-left:12px;">&#8594;</button>
+      </div>
+    `;
+
+    html += `<div class="mini-calendar"><div class="calendar-row calendar-header">`;
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     daysOfWeek.forEach(d => html += `<div class="calendar-cell calendar-header">${d}</div>`);
     html += `</div><div class="calendar-row">`;
@@ -219,8 +239,30 @@ function renderCalendar() {
 
     html += `</div></div>`;
     document.getElementById("calendarContainer").innerHTML = html;
+
+    document.getElementById("prevMonth").addEventListener("click", () => {
+      calendarMonth--;
+      if(calendarMonth < 0){
+        calendarMonth = 11;
+        calendarYear--;
+      }
+      renderCalendar();
+    });
+
+    document.getElementById("nextMonth").addEventListener("click", () => {
+      calendarMonth++;
+      if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear++;
+      }
+      renderCalendar();
+    });
   });
+
 }
+
+
+
 
 function loadStreaks() {
   chrome.storage.sync.get(["streaks"], (data) => {

@@ -125,3 +125,15 @@ input[type="text"]::placeholder {
   border-radius: 3px;
   margin: 1px 0;
 }
+.calendar-header-row button {
+  background: #36393f;
+  color: #f5f6fa;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 10px;
+  transition: background 0.2s;
+}
+.calendar-header-row button:hover {
+  background: #7289da;
+}

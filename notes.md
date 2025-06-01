@@ -19,6 +19,7 @@
 * upload progress photos
 * quantify habits (e.g. how many cups of water, how many pushups done)
 * habit counter for other things like doing work
+* friend streaks
 
 **Done**
 * choosing custom habits for different websites
