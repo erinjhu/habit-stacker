@@ -8,7 +8,6 @@
 **Possible features to add later:**
 * button to quickly disable all habits
 * daily habit or multiple times per day
-* a small calendar to show days where the user completed a habit
 * statistics
 * progress/goals
 * tab switches, idle time
@@ -20,11 +19,15 @@
 * quantify habits (e.g. how many cups of water, how many pushups done)
 * habit counter for other things like doing work
 * friend streaks
+* a timemr so that you actually do the habit instead of clicking away. option to configure how long you want the timer for
+* customizable dashboard for which stats to show
 
 **Done**
 * choosing custom habits for different websites
 * streak counter
 * popup comes every time you refresh a website. instead, allow the user to change the frequency
+* a small calendar to show days where the user completed a habit
+
 
 -----------------------------
 

@@ -202,16 +202,18 @@ function renderCalendar() {
     ];
 
     let html = `
-      <div class="calendar-header-row" style="display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
-        <button id="prevMonth" style="font-size:18px; margin-right:12px;">&#8592;</button>
-        <span style="font-weight:bold; font-size:1.1em; min-width:120px; text-align:center;">
-          ${monthNames[month]} ${year}
-        </span>
-        <button id="nextMonth" style="font-size:18px; margin-left:12px;">&#8594;</button>
-      </div>
+    <div class="calendar-group">
+        <div class="calendar-header-row">
+          <button id="prevMonth">&#8592;</button>
+          <span class="calendar-title">
+            ${monthNames[month]} ${year}
+          </span>
+          <button id="nextMonth">&#8594;</button>
+        </div>
+        <div class="mini-calendar">
+          <div class="calendar-row calendar-header">
     `;
 
-    html += `<div class="mini-calendar"><div class="calendar-row calendar-header">`;
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     daysOfWeek.forEach(d => html += `<div class="calendar-cell calendar-header">${d}</div>`);
     html += `</div><div class="calendar-row">`;
@@ -237,7 +239,7 @@ function renderCalendar() {
       }
     }
 
-    html += `</div></div>`;
+    html += `</div></div></div>`;
     document.getElementById("calendarContainer").innerHTML = html;
 
     document.getElementById("prevMonth").addEventListener("click", () => {

@@ -91,7 +91,7 @@ input[type="text"]::placeholder {
   background: #23272a;
   border-radius: 8px;
   padding: 12px;
-  display: inline-block;
+  display: block;
 }
 .calendar-row {
   display: flex;
@@ -114,6 +114,7 @@ input[type="text"]::placeholder {
   font-weight: bold;
   justify-content: center;
   align-items: center;
+  
 }
 .calendar-day-num {
   font-size: 0.9em;
@@ -136,4 +137,29 @@ input[type="text"]::placeholder {
 }
 .calendar-header-row button:hover {
   background: #7289da;
+}
+.calendar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.calendar-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  width: 308px;
+}
+.calendar-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  min-width: 120px;
+  text-align: center;
+  margin: 0 12px;
+}
+#prevMonth, #nextMonth {
+  font-size: 18px;
+  margin: 0 12px;
+  min-width: 0;
+  width: 50px
 }
