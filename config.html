@@ -1,58 +1,23 @@
-<!-- Edit habits and view streaks-->
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Habit Settings</title>
-  <link rel="stylesheet" href="config.css">
+  <meta charset="UTF-8">
+  <title>Habit Stacker - Config</title>
+  <style>
+    body { font-family: sans-serif; margin: 32px; }
+    #domainInput { width: 220px; }
+    #saveDomainBtn { margin-left: 8px; }
+    #domainList { margin-top: 16px; padding-left: 0; }
+    #domainList li { list-style: none; padding: 4px 0; }
+    label { font-weight: bold; }
+  </style>
 </head>
 <body>
-  <div>
-    <!-- habit editor-->
-    <h2>Customize Habits</h2>
-    <label>Website domain (e.g. youtube.com):</label>
-    <input type="text" id="domain" placeholder="example.com">
-    <label>Habit message:</label>
-    <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
-    <!-- checkbox and frequency controls-->
-    <div id="frequencyControls">
-      <input type="number" id="frequencyValue" min="1" value="1" style="width:60px; display:inline;">
-      <select id="frequencyUnit" style="width:auto;display:inline;">
-        <option value="minutes">minutes</option>
-        <option value="hours">hours</option>
-      </select>
-      <span>between popups</span>
-    </div>
-    <label>
-      <input type="checkbox" id="alwaysShow">
-      Show habit reminder every time I open this site
-    </label>
-    <!-- color picker-->
-     <div id="colorPicker" style="margin: 10px 0;">
-      <span>Choose color:</span>
-      <button class="color-btn" data-color="#f28b82" style="background:#f28b82;"></button>
-      <button class="color-btn" data-color="#fbbc04" style="background:#fbbc04;"></button>
-      <button class="color-btn" data-color="#fff475" style="background:#fff475;"></button>
-      <button class="color-btn" data-color="#ccff90" style="background:#ccff90;"></button>
-      <button class="color-btn" data-color="#a7ffeb" style="background:#a7ffeb;"></button>
-      <button class="color-btn" data-color="#cbf0f8" style="background:#cbf0f8;"></button>
-      <button class="color-btn" data-color="#aecbfa" style="background:#aecbfa;"></button>
-      <button class="color-btn" data-color="#d7aefb" style="background:#d7aefb;"></button>
-      <input type="hidden" id="habitColor" value="#f28b82">
-    </div>
-    <!-- save habit -->
-    <button id="save">Save Habit</button>
-  </div>
-  <div>
-    <h3>Saved Habits</h3>
-    <ul id="habitList"></ul>
-  </div>  
-  
-  <div>
-    <h2>Streaks</h2>
-    <ul id="streakList"></ul>
-    <div id="calendarContainer"></div>
-  </div>
+  <label for="domainInput">Input website domain.</label><br>
+  <input type="text" id="domainInput" placeholder="e.g. example.com">
+  <button id="saveDomainBtn">Save</button>
+  <div id="savedDomainsLabel" style="margin-top:18px; font-weight:bold;">Saved Domains:</div>
+  <ul id="domainList"></ul>
   <script src="config.js"></script>
 </body>
 </html>
