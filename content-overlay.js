@@ -22,11 +22,30 @@ chrome.storage.sync.get({ domains: [] }, (data) => {
     overlay.style.background = 'rgba(0,0,0,0.85)';
     overlay.style.zIndex = '999999';
     overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
     overlay.style.alignItems = 'center';
     overlay.style.justifyContent = 'center';
     overlay.style.color = 'white';
     overlay.style.fontSize = '2rem';
-    overlay.innerText = 'Habit Stacker Overlay';
+
+    const message = document.createElement('div');
+    message.innerText = 'Habit Stacker Overlay';
+    message.style.marginBottom = '32px';
+    overlay.appendChild(message);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.innerText = 'Dismiss';
+    closeBtn.style.fontSize = '1.2rem';
+    closeBtn.style.padding = '12px 32px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.border = 'none';
+    closeBtn.style.borderRadius = '8px';
+    closeBtn.style.background = '#fff';
+    closeBtn.style.color = '#222';
+    closeBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+    closeBtn.addEventListener('click', () => overlay.remove());
+    overlay.appendChild(closeBtn);
+
     document.body.appendChild(overlay);
   } else {
     // Debug: show a small message if no match
