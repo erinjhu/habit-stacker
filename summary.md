@@ -15,13 +15,14 @@
 # content-overlay.js
 - Runs on every website (except restricted ones)
 - Checks if the current domain matches any saved domain
-- If matched, injects a fullscreen overlay with a "Dismiss" button
-- Overlay blocks the site until dismissed, then disappears
+- If matched, injects a fullscreen overlay with a countdown timer and a "Dismiss" button
+- The overlay blocks the site for 30 seconds, showing a live countdown
+- The "Dismiss" button is disabled until the timer finishes, then can be used to close the overlay
 
 # background.js
 - Handles extension icon click to open the config page
 
-# Summary
+# How it works
 - User saves domains via the config page
-- When visiting a saved domain, the overlay appears and can be dismissed
+- When visiting a saved domain, the overlay appears with a 30-second countdown and can be dismissed after the timer
 - All logic uses Chrome extension APIs and works across browser sessions

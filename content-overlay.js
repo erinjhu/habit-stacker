@@ -33,20 +33,45 @@ chrome.storage.sync.get({ domains: [] }, (data) => {
     message.style.marginBottom = '32px';
     overlay.appendChild(message);
 
+    // Countdown timer
+    const timer = document.createElement('div');
+    let secondsLeft = 30;
+    timer.style.fontSize = '1.5rem';
+    timer.style.marginBottom = '24px';
+    overlay.appendChild(timer);
+
+    function updateTimer() {
+      timer.innerHTML = `<span>Please wait </span><span id="habit-timer-count">${secondsLeft}</span><span> seconds</span>`;
+    }
+    updateTimer();
+
     const closeBtn = document.createElement('button');
     closeBtn.innerText = 'Dismiss';
     closeBtn.style.fontSize = '1.2rem';
     closeBtn.style.padding = '12px 32px';
-    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.cursor = 'not-allowed';
     closeBtn.style.border = 'none';
     closeBtn.style.borderRadius = '8px';
     closeBtn.style.background = '#fff';
     closeBtn.style.color = '#222';
     closeBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+    closeBtn.disabled = true;
     closeBtn.addEventListener('click', () => overlay.remove());
     overlay.appendChild(closeBtn);
 
     document.body.appendChild(overlay);
+
+    // Countdown logic
+    const interval = setInterval(() => {
+      secondsLeft--;
+      updateTimer();
+      if (secondsLeft <= 0) {
+        clearInterval(interval);
+        timer.innerText = 'You may now dismiss the overlay.';
+        closeBtn.disabled = false;
+        closeBtn.style.cursor = 'pointer';
+      }
+    }, 1000);
   } else {
     // Debug: show a small message if no match
     console.log('[Habit Stacker] No domain match for', currentDomain, 'in', domains);
