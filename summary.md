@@ -20,7 +20,7 @@
 - The "Dismiss" button is disabled until the timer finishes, then can be used to close the overlay
 
 # background.js
-- Handles extension icon click to open the config page
+- When the user clicks the extension icon, they will open the config page
 
 # How it works
 - User saves domains via the config page
