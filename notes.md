@@ -21,6 +21,8 @@
 * friend streaks
 * a timemr so that you actually do the habit instead of clicking away. option to configure how long you want the timer for
 * customizable dashboard for which stats to show
+* feed for completed habits where users can react and comment on their friend's habit completions
+* if a user skips a habit, it notifies their friends
 
 **Done**
 * choosing custom habits for different websites
