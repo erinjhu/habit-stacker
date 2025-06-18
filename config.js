@@ -192,7 +192,53 @@ document.addEventListener('DOMContentLoaded', function() {
       list.innerHTML = '';
       Object.entries(habits).forEach(([domain, data]) => {
         if (domain === 'streaks') return;
+        // Frequency display logic
+        let frequencyText = '';
+        if (data.alwaysShow) {
+          frequencyText = 'Always show overlay when visiting this site';
+        } else if (data.method === 'time' && data.frequency) {
+          const min = data.frequency.minutes || 0;
+          const sec = data.frequency.seconds || 0;
+          let parts = [];
+          if (min > 0) parts.push(min + ' minute' + (min > 1 ? 's' : ''));
+          if (sec > 0) parts.push(sec + ' second' + (sec > 1 ? 's' : ''));
+          frequencyText = 'Show overlay only once every ' + (parts.length ? parts.join(' and ') : '0 seconds');
+        } else {
+          frequencyText = 'Always show overlay when visiting this site';
+        }
+
+        // Time/reps stats
+        let statsText = '';
+        const today = new Date();
+        const todayKey = today.getFullYear() + '-' + (today.getMonth()+1).toString().padStart(2,'0') + '-' + today.getDate().toString().padStart(2,'0');
+        if (data.method === 'time') {
+          // Total time and today's time (in seconds)
+          let totalTime = Number(data.totalTime) || 0; // in seconds
+          let todayTime = (data.dailyTime && data.dailyTime[todayKey]) ? Number(data.dailyTime[todayKey]) : 0;
+          // Debug log
+          console.log('[Habit Stacker][Config] Time stats for', domain, { totalTime, todayTime, dailyTime: data.dailyTime });
+          // Format as mm:ss
+          function formatTime(sec) {
+            const m = Math.floor(sec/60);
+            const s = sec%60;
+            return m+"m "+s+"s";
+          }
+          statsText = `<br><small>Total time: <b>${formatTime(totalTime)}</b> &nbsp; | &nbsp; Today: <b>${formatTime(todayTime)}</b></small>`;
+        } else if (data.method === 'reps') {
+          // Total reps, today's reps, and total sets
+          let totalReps = Number(data.totalReps) || 0;
+          let todayReps = (data.dailyReps && data.dailyReps[todayKey]) ? Number(data.dailyReps[todayKey]) : 0;
+          // Calculate total sets (totalReps / reps per set)
+          let repsPerSet = data.reps?.reps || 1;
+          let totalSets = repsPerSet > 0 ? Math.floor(totalReps / repsPerSet) : 0;
+          // Debug log
+          console.log('[Habit Stacker][Config] Reps stats for', domain, { totalReps, todayReps, totalSets, dailyReps: data.dailyReps });
+          statsText = `<br><small>Total reps: <b>${totalReps}</b> &nbsp; | &nbsp; Today: <b>${todayReps}</b> &nbsp; | &nbsp; Total sets: <b>${totalSets}</b></small>`;
+        }
+
         let display = `<strong>${domain}</strong>: <span>${data.message}</span> <span style='background:${data.color};padding:2px 8px;border-radius:4px;margin-left:8px;'></span>`;
+        display += `<br><small>${frequencyText}</small>`;
+        display += statsText;
         display += `<br><small>Streak: ${data.streak || 0} days</small>`;
         display += `<br><button data-edit-domain='${domain}'>Edit</button> <button data-domain='${domain}'>Delete</button>`;
         const li = document.createElement('li');
@@ -224,19 +270,21 @@ document.addEventListener('DOMContentLoaded', function() {
               document.getElementById('numSets').value = data.reps?.sets || 1;
               document.getElementById('repsPerSet').value = data.reps?.reps || 3;
             }
-            document.getElementById('habitColor').value = data.color || '#f28b82';
-            document.querySelectorAll('.color-btn').forEach(b => {
-              if (b.getAttribute('data-color') === data.color) {
-                b.classList.add('selected');
-              } else {
-                b.classList.remove('selected');
-              }
-            });
-            document.getElementById('save').textContent = 'Update Habit';
+            alwaysShow.checked = data.alwaysShow;
+            document.getElementById('frequencyControls').style.display = data.alwaysShow ? 'none' : '';
           });
         };
       });
     });
   }
   loadHabits();
+
+  // Listen for habit stats update from overlay
+  if (window.chrome && chrome.runtime && chrome.runtime.onMessage) {
+    chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+      if (msg && msg.type === 'habit-stats-updated') {
+        if (typeof loadHabits === 'function') loadHabits();
+      }
+    });
+  }
 });

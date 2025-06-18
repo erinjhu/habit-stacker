@@ -182,21 +182,44 @@ chrome.storage.sync.get(null, (data) => {
 
   // Streak update logic
   function updateStreak(domain, habitObj) {
-    const today = new Date();
-    const last = habitObj.lastCompleted ? new Date(habitObj.lastCompleted) : null;
-    let newStreak = 1;
-    if (last) {
-      const diff = Math.floor((today - last) / (1000 * 60 * 60 * 24));
-      if (diff === 1) newStreak = (habitObj.streak || 0) + 1;
-      else if (diff === 0) newStreak = habitObj.streak || 1;
-      else newStreak = 1;
-    }
-    const updated = Object.assign({}, habitObj, {
-      streak: newStreak,
-      lastCompleted: today.getTime()
+    chrome.storage.sync.get([domain], (result) => {
+      const latest = result[domain] || habitObj;
+      const today = new Date();
+      const last = latest.lastCompleted ? new Date(latest.lastCompleted) : null;
+      let newStreak = 1;
+      if (last) {
+        const diff = Math.floor((today - last) / (1000 * 60 * 60 * 24));
+        if (diff === 1) newStreak = (latest.streak || 0) + 1;
+        else if (diff === 0) newStreak = latest.streak || 1;
+        else newStreak = 1;
+      }
+      // --- Stats update logic ---
+      const todayKey = today.getFullYear() + '-' + (today.getMonth()+1).toString().padStart(2,'0') + '-' + today.getDate().toString().padStart(2,'0');
+      let updated = Object.assign({}, latest, {
+        streak: newStreak,
+        lastCompleted: today.getTime()
+      });
+      if (latest.method === 'time') {
+        // Add timer duration to totalTime and todayTime
+        const seconds = (latest.timer?.minutes || 0) * 60 + (latest.timer?.seconds || 0);
+        updated.totalTime = (latest.totalTime || 0) + seconds;
+        updated.dailyTime = Object.assign({}, latest.dailyTime || {});
+        updated.dailyTime[todayKey] = (updated.dailyTime[todayKey] || 0) + seconds;
+      } else if (latest.method === 'reps') {
+        // Add reps*sets to totalReps and todayReps
+        const reps = (latest.reps?.reps || 3) * (latest.reps?.sets || 1);
+        updated.totalReps = (latest.totalReps || 0) + reps;
+        updated.dailyReps = Object.assign({}, latest.dailyReps || {});
+        updated.dailyReps[todayKey] = (updated.dailyReps[todayKey] || 0) + reps;
+      }
+      const update = {};
+      update[domain] = updated;
+      chrome.storage.sync.set(update, () => {
+        // Debug log
+        console.log('[Habit Stacker] Updated stats for', domain, updated);
+        // Notify config page to reload habits if open
+        chrome.runtime.sendMessage({ type: 'habit-stats-updated', domain });
+      });
     });
-    const update = {};
-    update[domain] = updated;
-    chrome.storage.sync.set(update);
   }
 });
