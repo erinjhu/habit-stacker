@@ -231,9 +231,16 @@ document.addEventListener('DOMContentLoaded', function() {
           // Calculate total sets (totalReps / reps per set)
           let repsPerSet = data.reps?.reps || 1;
           let totalSets = repsPerSet > 0 ? Math.floor(totalReps / repsPerSet) : 0;
+          let todaySets = repsPerSet > 0 ? Math.floor(todayReps / repsPerSet) : 0;
           // Debug log
-          console.log('[Habit Stacker][Config] Reps stats for', domain, { totalReps, todayReps, totalSets, dailyReps: data.dailyReps });
-          statsText = `<br><small>Total reps: <b>${totalReps}</b> &nbsp; | &nbsp; Today: <b>${todayReps}</b> &nbsp; | &nbsp; Total sets: <b>${totalSets}</b></small>`;
+          console.log('[Habit Stacker][Config] Reps stats for', domain, { totalReps, todayReps, todaySets, totalSets, dailyReps: data.dailyReps });
+          statsText = `<br><small>Total reps: <b>${totalReps}</b> &nbsp; | &nbsp; Today's reps: <b>${todayReps}</b> &nbsp; | &nbsp; Today's sets: <b>${todaySets}</b> &nbsp; | &nbsp; Total sets: <b>${totalSets}</b></small>`;
+          statsBox = `<div class='habit-stats-box'>
+            <div class='habit-stats-label'>Today's reps</div><div class='habit-stats-value'>${todayReps}</div>
+            <div class='habit-stats-label'>Total reps</div><div class='habit-stats-value'>${totalReps}</div>
+            <div class='habit-stats-label'>Today's sets</div><div class='habit-stats-value'>${todaySets}</div>
+            <div class='habit-stats-label'>Total sets</div><div class='habit-stats-value'>${totalSets}</div>
+          </div>`;
         }
 
         // Domain heading with colored text only
