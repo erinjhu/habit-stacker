@@ -156,12 +156,16 @@
     body.dark-mode .habit-stats-value {
       color: #fff;
     }
+    .habit-main button[data-edit-domain],
+    .habit-main button[data-domain] {
+      margin-top: 12px;
+    }
   </style>
 </head>
 <body>
   <button id="themeToggle" style="position: fixed; top: 16px; right: 24px; z-index: 10000; padding: 8px 18px; border-radius: 8px; border: none; background: #eee; color: #222; font-size: 1em; cursor: pointer;">🌙</button>
   <div>
-    <h2>Customize Habits</h2>
+    <h2 style="font-size: 3em">CUSTOMIZE HABITS</h2>
     <label for="domain" title="The website where this habit reminder should appear">Website domain:</label>
     <input type="text" id="domain" placeholder="youtube.com" title="The website where this habit reminder should appear">
     <label for="habitText">Habit message:</label>
@@ -205,11 +209,11 @@
     <button id="save">Save Habit</button>
   </div>
   <div class="overlay-preview" id="overlayPreview">
-    <strong>Overlay Preview:</strong>
+    <h3 style="font-size: 2em">Overlay Preview</h3>
     <div id="previewContent"></div>
   </div>
   <div>
-    <h3>Saved Habits</h3>
+    <h2 style="font-size: 3em">SAVED HABITS</h2>
     <ul id="habitList"></ul>
     <div id="miniCalendar"></div>
   </div>  
