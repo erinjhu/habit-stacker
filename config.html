@@ -27,6 +27,18 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      position: relative;
+    }
+    .habit-card.habit-row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .habit-main {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
     .row { display: flex; justify-content: space-between; align-items: center; }
     .mini-calendar { margin-top: 24px; }
@@ -55,21 +67,38 @@
       color: #fff !important;
       border-color: #444 !important;
     }
-    /* body.dark-mode .color-btn {
-      border-color: #444 !important;
-      /* No background or color override so inline background is preserved */
-    /*} */
-    /* body.dark-mode .calendar-bar {
-      /* No background or color override so inline background is preserved */
-      /* border-color: #444 !important; */
-    /*} */
-    /* body.dark-mode .color-btn.selected { border: 3px solid #fff; } */
-    /* body.dark-mode .calendar-header-row, body.dark-mode .calendar-title { color: #fff; } */
+    
     body.dark-mode #themeToggle { background: #23272a; color: #fff; border: 1px solid #444; }
     #habitList {
       list-style: none;
       padding: 0;
       margin: 0;
+      /* font-size: 16px; */
+    }
+    .habit-domain {
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 1.2;
+      display: inline-block;
+    }
+    .habit-streak-label {
+      font-size: 1em;
+      color: #888;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .habit-streak-num {
+      font-size: 2.8em;
+      font-weight: bold;
+      color: #4caf50;
+      line-height: 1.1;
+    }
+    .habit-streak-days {
+      font-size: 1em;
+      color: #888;
+      margin-top: 0px;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>

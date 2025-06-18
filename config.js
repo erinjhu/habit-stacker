@@ -237,17 +237,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Domain heading with colored text only
-        let display = `<span style="font-weight:bold;color:${data.color};">${domain}</span>`;
-        display += `<div style='padding-top:6px;'>`;
-        display += `<span class="habit-message">${data.message}</span>`;
-        display += `<br><small>${frequencyText}</small>`;
-        display += statsText;
-        display += `<br><small>Streak: ${data.streak || 0} days</small>`;
-        display += `<br><button data-edit-domain='${domain}'>Edit</button> <button data-domain='${domain}'>Delete</button>`;
-        display += `</div>`;
+        let main = `<span class="habit-domain" style="color:${data.color};">${domain}</span>`;
+        main += `<div style='padding-top:6px;'><span class="habit-message">${data.message}</span>`;
+        main += `<br><small>${frequencyText}</small>`;
+        main += statsText;
+        main += `<br><button data-edit-domain='${domain}'>Edit</button> <button data-domain='${domain}'>Delete</button>`;
+        main += `</div>`;
+        let streakBox = `<div class='habit-streak-box'>`;
+        streakBox += `<div class='habit-streak-label'>Streak</div>`;
+        streakBox += `<div class='habit-streak-num'>${data.streak || 0}</div>`;
+        streakBox += `<div class='habit-streak-days'>days</div>`;
+        streakBox += `</div>`;
         const li = document.createElement('li');
-        li.className = 'habit-card';
-        li.innerHTML = display;
+        li.className = 'habit-card habit-row';
+        li.innerHTML = `<div class='habit-main'>${main}</div>${streakBox}`;
         list.appendChild(li);
       });
       // Add working edit/delete logic
