@@ -1,53 +1,86 @@
-<!-- Edit habits and view streaks-->
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Habit Settings</title>
-  <link rel="stylesheet" href="config.css">
+  <meta charset="UTF-8">
+  <title>Habit Stacker - Config</title>
+  <style>
+    body { font-family: sans-serif; margin: 32px; }
+    #domainInput { width: 220px; }
+    #saveDomainBtn { margin-left: 8px; }
+    #domainList { margin-top: 16px; padding-left: 0; }
+    #domainList li { list-style: none; padding: 4px 0; }
+    label { font-weight: bold; }
+    .color-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ccc; margin-right: 8px; cursor: pointer; display: inline-block; }
+    .color-btn.selected { border: 3px solid #222; }
+    .habit-card { margin: 12px 0; padding: 12px; border-radius: 8px; color: #222; }
+    .row { display: flex; justify-content: space-between; align-items: center; }
+    .mini-calendar { margin-top: 24px; }
+    .calendar-header-row { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 8px; }
+    .calendar-title { font-weight: bold; margin: 0 16px; }
+    .calendar-row { display: flex; }
+    .calendar-cell { width: 32px; height: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #eee; }
+    .calendar-header { background: #f0f0f0; font-weight: bold; }
+    .calendar-bar { width: 24px; height: 6px; border-radius: 3px; margin: 1px 0; }
+    .calendar-day-num { font-size: 0.9em; }
+    .toggle-btn { margin: 0 8px; padding: 4px 12px; border-radius: 6px; border: 1px solid #aaa; cursor: pointer; }
+    .toggle-btn.selected { background: #e0e0e0; font-weight: bold; }
+    .overlay-preview { border: 2px dashed #aaa; padding: 16px; margin: 16px 0; background: #f9f9f9; }
+  </style>
 </head>
 <body>
   <div>
-    <!-- habit editor-->
     <h2>Customize Habits</h2>
-    <label>Website domain (e.g. youtube.com):</label>
-    <input type="text" id="domain" placeholder="example.com">
-    <label>Habit message:</label>
+    <label for="domain" title="The website where this habit reminder should appear">Website domain:</label>
+    <input type="text" id="domain" placeholder="youtube.com" title="The website where this habit reminder should appear">
+    <label for="habitText">Habit message:</label>
     <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
-    <!-- checkbox and frequency controls-->
-    <div id="frequencyControls">
-      <input type="number" id="frequencyValue" min="1" value="1" style="width:60px; display:inline;">
-      <select id="frequencyUnit" style="width:auto;display:inline;">
-        <option value="minutes">minutes</option>
-        <option value="hours">hours</option>
-      </select>
-      <span>between popups</span>
+    <br><br>
+    <label>Choose a tracking method:</label>
+    <button type="button" id="toggleTime" class="toggle-btn selected">Time</button>
+    <button type="button" id="toggleReps" class="toggle-btn">Repetitions</button>
+    <div id="timeControls">
+      <label>Timer length:</label>
+      <select id="timerMinutes"></select> min
+      <select id="timerSeconds"></select> sec
     </div>
-    <label>
-      <input type="checkbox" id="alwaysShow">
-      Show habit reminder every time I open this site
-    </label>
-    <!-- color picker-->
-     <div id="colorPicker" style="margin: 10px 0;">
-      <span>Choose color:</span>
-      <button class="color-btn" data-color="#f28b82" style="background:#f28b82;"></button>
-      <button class="color-btn" data-color="#fbbc04" style="background:#fbbc04;"></button>
-      <button class="color-btn" data-color="#fff475" style="background:#fff475;"></button>
-      <button class="color-btn" data-color="#ccff90" style="background:#ccff90;"></button>
-      <button class="color-btn" data-color="#a7ffeb" style="background:#a7ffeb;"></button>
-      <button class="color-btn" data-color="#cbf0f8" style="background:#cbf0f8;"></button>
-      <button class="color-btn" data-color="#aecbfa" style="background:#aecbfa;"></button>
-      <button class="color-btn" data-color="#d7aefb" style="background:#d7aefb;"></button>
+    <div id="repsControls" style="display:none;">
+      <label>Repetitions per set:</label>
+      <input type="number" id="repsPerSet" min="1" value="3" style="width:50px;">
+      <label>Number of sets:</label>
+      <input type="number" id="numSets" min="1" value="1" style="width:50px;">
+    </div>
+    <br>
+    <input type="checkbox" id="alwaysShow">
+    <label for="alwaysShow">Always show overlay when visiting this site</label>
+    <div id="freqLabel" style="font-size:0.9em; color:#555;">If unchecked, show overlay only once every x minutes/seconds</div>
+    <div id="frequencyControls">
+      <label>Wait time between overlays:</label>
+      <select id="freqMinutes"></select> min
+      <select id="freqSeconds"></select> sec
+    </div>
+    <div id="colorPicker" style="margin: 10px 0;">
+      <span>Choose a colour for this habit:</span>
+      <button class="color-btn" data-color="#f28b82" title="Choose a colour for this habit" style="background:#f28b82;"></button>
+      <button class="color-btn" data-color="#fbbc04" title="Choose a colour for this habit" style="background:#fbbc04;"></button>
+      <button class="color-btn" data-color="#fff475" title="Choose a colour for this habit" style="background:#fff475;"></button>
+      <button class="color-btn" data-color="#ccff90" title="Choose a colour for this habit" style="background:#ccff90;"></button>
+      <button class="color-btn" data-color="#a7ffeb" title="Choose a colour for this habit" style="background:#a7ffeb;"></button>
+      <button class="color-btn" data-color="#cbf0f8" title="Choose a colour for this habit" style="background:#cbf0f8;"></button>
+      <button class="color-btn" data-color="#aecbfa" title="Choose a colour for this habit" style="background:#aecbfa;"></button>
+      <button class="color-btn" data-color="#d7aefb" title="Choose a colour for this habit" style="background:#d7aefb;"></button>
       <input type="hidden" id="habitColor" value="#f28b82">
     </div>
-    <!-- save habit -->
     <button id="save">Save Habit</button>
+  </div>
+  <div class="overlay-preview" id="overlayPreview">
+    <strong>Overlay Preview:</strong>
+    <div id="previewContent"></div>
   </div>
   <div>
     <h3>Saved Habits</h3>
     <ul id="habitList"></ul>
+    <div id="miniCalendar"></div>
   </div>  
-  
   <div>
     <h2>Streaks</h2>
     <ul id="streakList"></ul>

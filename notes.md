@@ -1,9 +1,5 @@
-# Progress #
+# Features on the configuration page
 
-**Currently working on:**
-
-
-**Bugs to fix**
 
 **Possible features to add later:**
 * button to quickly disable all habits
@@ -24,35 +20,3 @@
 * feed for completed habits where users can react and comment on their friend's habit completions
 * if a user skips a habit, it notifies their friends
 
-**Done**
-* choosing custom habits for different websites
-* streak counter
-* popup comes every time you refresh a website. instead, allow the user to change the frequency
-* a small calendar to show days where the user completed a habit
-
-
------------------------------
-
-# Conceptual Notes#
-
-Knowledge and skills gained from working on this project
-
-## Files##
-
-```manifest.json```
-* Configuration file
-* Permissions, scripts, popups
-
-```background.js```
-* Event listener
-
-```habit.html```
-* Popup window
-
-```habit.js```
-* Interactive features for popup
-
-##Functions##
-
-```chrome.tabs.onUpdated.addListener(...)```
-* If a tab changes URL or loads/reloads, do a function
