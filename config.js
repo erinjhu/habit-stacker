@@ -64,28 +64,21 @@ document.addEventListener('DOMContentLoaded', function() {
   populateDropdown('freqMinutes', 59, 0);
   populateDropdown('freqSeconds', 59, 0);
 
-  // Toggle tracking method
-  const toggleTime = document.getElementById('toggleTime');
-  const toggleReps = document.getElementById('toggleReps');
+  // Toggle between time and reps controls using the new toggle switch
+  const toggleMethod = document.getElementById('toggleMethod');
   const timeControls = document.getElementById('timeControls');
   const repsControls = document.getElementById('repsControls');
-  let trackingMethod = 'time';
-  toggleTime.onclick = function() {
-    trackingMethod = 'time';
-    toggleTime.classList.add('selected');
-    toggleReps.classList.remove('selected');
-    timeControls.style.display = '';
-    repsControls.style.display = 'none';
-    updatePreview();
-  };
-  toggleReps.onclick = function() {
-    trackingMethod = 'reps';
-    toggleReps.classList.add('selected');
-    toggleTime.classList.remove('selected');
-    timeControls.style.display = 'none';
-    repsControls.style.display = '';
-    updatePreview();
-  };
+  function updateMethodUI() {
+    if (toggleMethod.checked) {
+      timeControls.style.display = 'none';
+      repsControls.style.display = '';
+    } else {
+      timeControls.style.display = '';
+      repsControls.style.display = 'none';
+    }
+  }
+  toggleMethod.addEventListener('change', updateMethodUI);
+  updateMethodUI();
 
   // Color picker logic
   let selectedColor = '#f28b82';
@@ -111,12 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const msg = document.getElementById('habitText').value || 'Your habit message here';
     let html = `<div style="background:${selectedColor};padding:16px;border-radius:8px;min-width:200px;min-height:60px;">`;
     html += `<div style='font-size:1.2em;margin-bottom:8px;'>${msg}</div>`;
-    if (trackingMethod === 'time') {
-      const min = document.getElementById('timerMinutes').value;
-      const sec = document.getElementById('timerSeconds').value;
-      html += `<div>Timer: ${min.padStart(2,'0')}:${sec.padStart(2,'0')}</div>`;
-      html += `<button style='margin-top:10px;' disabled>Complete (wait for timer)</button>`;
-    } else {
+    if (toggleMethod.checked) {
       const sets = document.getElementById('numSets').value;
       const reps = document.getElementById('repsPerSet').value;
       html += `<div>Sets: ${sets}, Reps per set: ${reps}</div>`;
@@ -125,6 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
         html += `<span style='font-size:1.5em;margin:0 4px;color:#bbb;'>&#10003;</span>`;
       }
       html += `</div>`;
+    } else {
+      const min = document.getElementById('timerMinutes').value;
+      const sec = document.getElementById('timerSeconds').value;
+      html += `<div>Timer: ${min.padStart(2,'0')}:${sec.padStart(2,'0')}</div>`;
+      html += `<button style='margin-top:10px;' disabled>Complete (wait for timer)</button>`;
     }
     html += `</div>`;
     document.getElementById('previewContent').innerHTML = html;
@@ -141,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const domain = document.getElementById('domain').value.trim();
     const message = document.getElementById('habitText').value.trim();
     if (!domain || !message) return;
-    const method = trackingMethod;
+    const method = toggleMethod.checked ? 'reps' : 'time';
     let habitObj = {
       message,
       color: selectedColor,
@@ -277,11 +270,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('domain').value = domain;
             document.getElementById('habitText').value = data.message;
             if (data.method === 'time') {
-              document.getElementById('toggleTime').click();
+              toggleMethod.checked = false;
+              updateMethodUI();
               document.getElementById('timerMinutes').value = data.timer?.minutes || 0;
               document.getElementById('timerSeconds').value = data.timer?.seconds || 0;
             } else {
-              document.getElementById('toggleReps').click();
+              toggleMethod.checked = true;
+              updateMethodUI();
               document.getElementById('numSets').value = data.reps?.sets || 1;
               document.getElementById('repsPerSet').value = data.reps?.reps || 3;
             }
