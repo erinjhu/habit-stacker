@@ -16,7 +16,18 @@
     label { font-weight: bold; }
     .color-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ccc; margin-right: 8px; cursor: pointer; display: inline-block; }
     .color-btn.selected { border: 3px solid #222; }
-    .habit-card { margin: 12px 0; padding: 12px; border-radius: 8px; color: #222; }
+    .habit-card {
+      margin: 16px 0;
+      padding: 18px 20px;
+      border-radius: 16px;
+      color: #222;
+      border: 2px solid #333;
+      background: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
     .row { display: flex; justify-content: space-between; align-items: center; }
     .mini-calendar { margin-top: 24px; }
     .calendar-header-row { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 8px; }
@@ -55,20 +66,10 @@
     /* body.dark-mode .color-btn.selected { border: 3px solid #fff; } */
     /* body.dark-mode .calendar-header-row, body.dark-mode .calendar-title { color: #fff; } */
     body.dark-mode #themeToggle { background: #23272a; color: #fff; border: 1px solid #444; }
-    /* Remove global dark mode button styling */
-    body.dark-mode button {
-      background: unset;
-      color: unset;
-      border-color: unset;
-    }
-    /* Only affect specific buttons in dark mode */
-    body.dark-mode #save,
-    body.dark-mode button[data-edit-domain],
-    body.dark-mode button[data-domain],
-    body.dark-mode .calendar-header-row > button {
-      background: #23272a !important;
-      color: #fff !important;
-      border: 1px solid #444 !important;
+    #habitList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
   </style>
 </head>

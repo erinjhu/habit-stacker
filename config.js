@@ -236,11 +236,15 @@ document.addEventListener('DOMContentLoaded', function() {
           statsText = `<br><small>Total reps: <b>${totalReps}</b> &nbsp; | &nbsp; Today: <b>${todayReps}</b> &nbsp; | &nbsp; Total sets: <b>${totalSets}</b></small>`;
         }
 
-        let display = `<strong>${domain}</strong>: <span>${data.message}</span> <span style='background:${data.color};padding:2px 8px;border-radius:4px;margin-left:8px;'></span>`;
+        // Domain heading with colored text only
+        let display = `<span style="font-weight:bold;color:${data.color};">${domain}</span>`;
+        display += `<div style='padding-top:6px;'>`;
+        display += `<span class="habit-message">${data.message}</span>`;
         display += `<br><small>${frequencyText}</small>`;
         display += statsText;
         display += `<br><small>Streak: ${data.streak || 0} days</small>`;
         display += `<br><button data-edit-domain='${domain}'>Edit</button> <button data-domain='${domain}'>Delete</button>`;
+        display += `</div>`;
         const li = document.createElement('li');
         li.className = 'habit-card';
         li.innerHTML = display;
