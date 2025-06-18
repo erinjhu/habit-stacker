@@ -407,3 +407,20 @@ function renderMiniCalendar(habits) {
   }
 }
 
+// Theme toggle logic for dark/light mode
+window.addEventListener('DOMContentLoaded', function() {
+  const themeBtn = document.getElementById('themeToggle');
+  if (!themeBtn) return;
+  function setTheme(dark) {
+    document.body.classList.toggle('dark-mode', dark);
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  }
+  let dark = localStorage.getItem('habitTheme') === 'dark';
+  setTheme(dark);
+  themeBtn.onclick = () => {
+    dark = !dark;
+    setTheme(dark);
+    localStorage.setItem('habitTheme', dark ? 'dark' : 'light');
+  };
+});
+

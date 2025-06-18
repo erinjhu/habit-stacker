@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Habit Stacker - Config</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; margin: 32px; }
+    body, input, button, select, label, .habit-card, .calendar-title, .calendar-cell, .calendar-header, .calendar-bar, .calendar-day-num, .toggle-btn, .overlay-preview {
+      font-family: 'Space Grotesk', Arial, Helvetica, sans-serif;
+    }
+    body { margin: 32px; }
     #domainInput { width: 220px; }
     #saveDomainBtn { margin-left: 8px; }
     #domainList { margin-top: 16px; padding-left: 0; }
@@ -25,9 +29,22 @@
     .toggle-btn { margin: 0 8px; padding: 4px 12px; border-radius: 6px; border: 1px solid #aaa; cursor: pointer; }
     .toggle-btn.selected { background: #e0e0e0; font-weight: bold; }
     .overlay-preview { border: 2px dashed #aaa; padding: 16px; margin: 16px 0; background: #f9f9f9; }
+    body.dark-mode {
+      background: #181a1b;
+      color: #fff;
+    }
+    body.dark-mode input, body.dark-mode select, body.dark-mode button, body.dark-mode .habit-card, body.dark-mode .calendar-cell, body.dark-mode .calendar-header, body.dark-mode .calendar-bar, body.dark-mode .calendar-day-num, body.dark-mode .toggle-btn, body.dark-mode .overlay-preview {
+      background: #23272a !important;
+      color: #fff !important;
+      border-color: #444 !important;
+    }
+    body.dark-mode .color-btn.selected { border: 3px solid #fff; }
+    body.dark-mode .calendar-header-row, body.dark-mode .calendar-title { color: #fff; }
+    body.dark-mode #themeToggle { background: #23272a; color: #fff; border: 1px solid #444; }
   </style>
 </head>
 <body>
+  <button id="themeToggle" style="position: fixed; top: 16px; right: 24px; z-index: 10000; padding: 8px 18px; border-radius: 8px; border: none; background: #eee; color: #222; font-size: 1em; cursor: pointer;">🌙</button>
   <div>
     <h2>Customize Habits</h2>
     <label for="domain" title="The website where this habit reminder should appear">Website domain:</label>
@@ -87,5 +104,21 @@
     <div id="calendarContainer"></div>
   </div>
   <script src="config.js"></script>
+  <script>
+    // Theme toggle logic
+    const themeBtn = document.getElementById('themeToggle');
+    function setTheme(dark) {
+      document.body.classList.toggle('dark-mode', dark);
+      themeBtn.textContent = dark ? '☀️' : '🌙';
+    }
+    // Load theme from localStorage
+    let dark = localStorage.getItem('habitTheme') === 'dark';
+    setTheme(dark);
+    themeBtn.onclick = () => {
+      dark = !dark;
+      setTheme(dark);
+      localStorage.setItem('habitTheme', dark ? 'dark' : 'light');
+    };
+  </script>
 </body>
 </html>
