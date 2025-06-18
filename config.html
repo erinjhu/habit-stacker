@@ -15,7 +15,7 @@
     .habit-card { margin: 12px 0; padding: 12px; border-radius: 8px; color: #222; }
     .row { display: flex; justify-content: space-between; align-items: center; }
     .mini-calendar { margin-top: 24px; }
-    .calendar-header-row { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+    .calendar-header-row { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 8px; }
     .calendar-title { font-weight: bold; margin: 0 16px; }
     .calendar-row { display: flex; }
     .calendar-cell { width: 32px; height: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #eee; }
@@ -79,6 +79,7 @@
   <div>
     <h3>Saved Habits</h3>
     <ul id="habitList"></ul>
+    <div id="miniCalendar"></div>
   </div>  
   <div>
     <h2>Streaks</h2>

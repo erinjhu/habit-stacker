@@ -275,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         };
       });
+      renderMiniCalendar(habits);
     });
   }
   loadHabits();
@@ -288,3 +289,88 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Mini Calendar Logic
+function renderMiniCalendar(habits) {
+  const calendarDiv = document.getElementById('miniCalendar');
+  if (!calendarDiv) return;
+  calendarDiv.innerHTML = '';
+  const month = calendarMonth;
+  const year = calendarYear;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDay = new Date(year, month, 1).getDay();
+  // Collect completions per day: { 'YYYY-MM-DD': [habitColor, ...] }
+  const completions = {};
+  Object.entries(habits).forEach(([domain, data]) => {
+    if (domain === 'streaks') return;
+    let color = data.color || '#f28b82';
+    let daily = data.method === 'time' ? data.dailyTime : data.dailyReps;
+    if (daily) {
+      Object.keys(daily).forEach(dateKey => {
+        if (Number(daily[dateKey]) > 0 && dateKey.startsWith(year + '-')) {
+          if (!completions[dateKey]) completions[dateKey] = [];
+          completions[dateKey].push(color);
+        }
+      });
+    }
+  });
+  // Calendar header
+  const headerRow = document.createElement('div');
+  headerRow.className = 'calendar-header-row';
+  const leftBtn = document.createElement('button');
+  leftBtn.textContent = '<';
+  leftBtn.onclick = () => { calendarMonth--; if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; } renderMiniCalendar(habits); };
+  const rightBtn = document.createElement('button');
+  rightBtn.textContent = '>';
+  rightBtn.onclick = () => { calendarMonth++; if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; } renderMiniCalendar(habits); };
+  const title = document.createElement('span');
+  title.className = 'calendar-title';
+  title.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+  headerRow.appendChild(leftBtn);
+  headerRow.appendChild(title);
+  headerRow.appendChild(rightBtn);
+  calendarDiv.appendChild(headerRow);
+  // Day headers
+  const daysRow = document.createElement('div');
+  daysRow.className = 'calendar-row';
+  ['S','M','T','W','T','F','S'].forEach(d => {
+    const cell = document.createElement('div');
+    cell.className = 'calendar-cell calendar-header';
+    cell.textContent = d;
+    daysRow.appendChild(cell);
+  });
+  calendarDiv.appendChild(daysRow);
+  // Calendar days
+  let day = 1;
+  for (let week = 0; week < 6 && day <= daysInMonth; week++) {
+    const row = document.createElement('div');
+    row.className = 'calendar-row';
+    for (let d = 0; d < 7; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'calendar-cell';
+      if ((week === 0 && d < firstDay) || day > daysInMonth) {
+        cell.innerHTML = '&nbsp;';
+      } else {
+        const dateKey = year + '-' + (month+1).toString().padStart(2,'0') + '-' + day.toString().padStart(2,'0');
+        const barStack = document.createElement('div');
+        if (completions[dateKey]) {
+          completions[dateKey].forEach(color => {
+            const bar = document.createElement('div');
+            bar.className = 'calendar-bar';
+            bar.style.background = color;
+            barStack.appendChild(bar);
+          });
+        }
+        const dayNum = document.createElement('div');
+        dayNum.className = 'calendar-day-num';
+        dayNum.textContent = day;
+        cell.appendChild(dayNum);
+        cell.appendChild(barStack);
+        day++;
+      }
+      row.appendChild(cell);
+    }
+    calendarDiv.appendChild(row);
+  }
+}
+
