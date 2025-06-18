@@ -320,14 +320,47 @@ function renderMiniCalendar(habits) {
   const leftBtn = document.createElement('button');
   leftBtn.textContent = '<';
   leftBtn.onclick = () => { calendarMonth--; if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; } renderMiniCalendar(habits); };
+
+  // Month dropdown
+  const monthSelect = document.createElement('select');
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  for (let i = 0; i < 12; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = monthNames[i];
+    if (i === month) opt.selected = true;
+    monthSelect.appendChild(opt);
+  }
+  monthSelect.onchange = (e) => {
+    calendarMonth = Number(e.target.value);
+    renderMiniCalendar(habits);
+  };
+
+  // Year dropdown
+  const yearSelect = document.createElement('select');
+  const thisYear = (new Date()).getFullYear();
+  for (let y = thisYear - 5; y <= thisYear + 5; y++) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    if (y === year) opt.selected = true;
+    yearSelect.appendChild(opt);
+  }
+  yearSelect.onchange = (e) => {
+    calendarYear = Number(e.target.value);
+    renderMiniCalendar(habits);
+  };
+
   const rightBtn = document.createElement('button');
   rightBtn.textContent = '>';
   rightBtn.onclick = () => { calendarMonth++; if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; } renderMiniCalendar(habits); };
-  const title = document.createElement('span');
-  title.className = 'calendar-title';
-  title.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
+
   headerRow.appendChild(leftBtn);
-  headerRow.appendChild(title);
+  headerRow.appendChild(monthSelect);
+  headerRow.appendChild(yearSelect);
   headerRow.appendChild(rightBtn);
   calendarDiv.appendChild(headerRow);
   // Day headers
