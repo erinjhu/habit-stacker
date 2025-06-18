@@ -118,6 +118,44 @@
       margin-left: auto;
       margin-right: auto;
     }
+    .habit-stats-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      min-width: 90px;
+      margin-right: 18px;
+      margin-left: 0;
+      padding: 8px 0 8px 0;
+      text-align: right;
+      font-size: 1em;
+      gap: 2px;
+    }
+    .habit-stats-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 6px;
+    }
+    .habit-stats-label {
+      color: #888;
+      font-size: 0.98em;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+    body.dark-mode .habit-stats-label {
+      color: #bbb;
+    }
+    .habit-stats-value {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #222;
+    }
+    body.dark-mode .habit-stats-value {
+      color: #fff;
+    }
   </style>
 </head>
 <body>

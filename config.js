@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const list = document.getElementById('habitList');
       list.innerHTML = '';
       Object.entries(habits).forEach(([domain, data]) => {
+        let statsBox = '';
         if (domain === 'streaks') return;
         // Frequency display logic
         let frequencyText = '';
@@ -234,12 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
           let todaySets = repsPerSet > 0 ? Math.floor(todayReps / repsPerSet) : 0;
           // Debug log
           console.log('[Habit Stacker][Config] Reps stats for', domain, { totalReps, todayReps, todaySets, totalSets, dailyReps: data.dailyReps });
-          statsText = `<br><small>Total reps: <b>${totalReps}</b> &nbsp; | &nbsp; Today's reps: <b>${todayReps}</b> &nbsp; | &nbsp; Today's sets: <b>${todaySets}</b> &nbsp; | &nbsp; Total sets: <b>${totalSets}</b></small>`;
-          statsBox = `<div class='habit-stats-box'>
-            <div class='habit-stats-label'>Today's reps</div><div class='habit-stats-value'>${todayReps}</div>
-            <div class='habit-stats-label'>Total reps</div><div class='habit-stats-value'>${totalReps}</div>
-            <div class='habit-stats-label'>Today's sets</div><div class='habit-stats-value'>${todaySets}</div>
-            <div class='habit-stats-label'>Total sets</div><div class='habit-stats-value'>${totalSets}</div>
+          statsText = '';
+          statsBox = `<div class="habit-stats-box">
+            <div class="habit-stats-row"><div class="habit-stats-label">Today's reps</div><div class="habit-stats-value">${todayReps}</div></div>
+            <div class="habit-stats-row"><div class="habit-stats-label">Total reps</div><div class="habit-stats-value">${totalReps}</div></div>
+            <div class="habit-stats-row"><div class="habit-stats-label">Today's sets</div><div class="habit-stats-value">${todaySets}</div></div>
+            <div class="habit-stats-row"><div class="habit-stats-label">Total sets</div><div class="habit-stats-value">${totalSets}</div></div>
           </div>`;
         }
 
@@ -257,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         streakBox += `</div>`;
         const li = document.createElement('li');
         li.className = 'habit-card habit-row';
-        li.innerHTML = `<div class='habit-main'>${main}</div>${streakBox}`;
+        li.innerHTML = `<div class='habit-main'>${main}</div>${statsBox}${streakBox}`;
         list.appendChild(li);
       });
       // Add working edit/delete logic
