@@ -123,22 +123,29 @@ chrome.storage.sync.get(null, (data) => {
     let completedSets = 0;
     const checksDiv = document.createElement('div');
     for (let i = 0; i < sets; i++) {
-      const check = document.createElement('span');
-      check.innerHTML = '&#10003;';
-      check.style.fontSize = '2em';
-      check.style.margin = '0 8px';
-      check.style.color = '#bbb';
-      check.style.cursor = 'pointer';
-      check.onclick = () => {
-        if (check.style.color === 'limegreen') return;
-        check.style.color = 'limegreen';
+      const checkBtn = document.createElement('button');
+      checkBtn.innerHTML = '';
+      checkBtn.style.fontSize = '1.5em';
+      checkBtn.style.margin = '0 8px';
+      checkBtn.style.width = '40px';
+      checkBtn.style.height = '40px';
+      checkBtn.style.background = '#bbb';
+      checkBtn.style.color = '#fff';
+      checkBtn.style.border = 'none';
+      checkBtn.style.borderRadius = '8px';
+      checkBtn.style.cursor = 'pointer';
+      checkBtn.style.transition = 'background 0.2s';
+      checkBtn.onclick = () => {
+        if (checkBtn.style.background === 'limegreen') return;
+        checkBtn.style.background = 'limegreen';
+        checkBtn.innerHTML = '&#10003;';
         completedSets++;
         if (completedSets === sets) {
           completeBtn.disabled = false;
           completeBtn.style.cursor = 'pointer';
         }
       };
-      checksDiv.appendChild(check);
+      checksDiv.appendChild(checkBtn);
     }
     checksDiv.style.marginBottom = '10px';
     card.appendChild(checksDiv);
@@ -162,7 +169,7 @@ chrome.storage.sync.get(null, (data) => {
 
   // Skip button
   skipBtn = document.createElement('button');
-  skipBtn.innerText = 'Skip (does not increment streak)';
+  skipBtn.innerText = 'Skip (break streak)';
   skipBtn.style.margin = '16px 0 0 0';
   skipBtn.style.fontSize = '1em';
   skipBtn.style.padding = '8px 24px';
