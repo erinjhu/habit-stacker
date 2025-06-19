@@ -217,7 +217,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const s = sec%60;
             return m+"m "+s+"s";
           }
-          statsText = `<br><small>Total time: <b>${formatTime(totalTime)}</b> &nbsp; | &nbsp; Today: <b>${formatTime(todayTime)}</b></small>`;
+          statsBox = `<div class="habit-stats-box">
+            <div class="habit-stats-row"><div class="habit-stats-label">Today's time</div><div class="habit-stats-value">${formatTime(todayTime)}</div></div>
+            <div class="habit-stats-row"><div class="habit-stats-label">Total time</div><div class="habit-stats-value">${formatTime(totalTime)}</div></div>
+          </div>`;
+          statsText = '';
         } else if (data.method === 'reps') {
           // Total reps, today's reps, and total sets
           let totalReps = Number(data.totalReps) || 0;

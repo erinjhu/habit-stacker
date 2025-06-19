@@ -183,6 +183,8 @@
       display: flex;
       flex-direction: column;
       gap: 0;
+      /* Remove any left margin if present */
+      margin-left: 0;
     }
     .color-btn-row {
       margin-top: 6px;
@@ -219,7 +221,7 @@
     }
     .toggleContainer div {
       padding: 6px;
-      text-align: center;
+      text-align: left;
       z-index: 1;
     }
     .toggleCheckbox:checked + .toggleContainer::before {
@@ -241,59 +243,157 @@
       color: white;
       transition: color 0.3s;
     }
+    .input-section {
+      margin-bottom: 16px;
+      /* margin-left: 0; */
+    }
+    .section-label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 1.1em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label-large {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-left: 0;
+      /* aligns with input icons */
+    }
+    .input-icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      line-height: 24px;
+      font-size: 1.2em;
+    }
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      /* Remove left margin and icon space */
+    }
+    .input-row label {
+      margin: 0;
+      flex: 1;
+    }
+    .input-row input,
+    .input-row select {
+      flex: 2;
+      min-width: 120px;
+    }
+    /* Checkbox row alignment */
+    .checkbox-label-row {
+      display: flex;
+      gap: 8px;
+      flex: 2;
+      min-width: 120px;
+    }
+    .checkbox-label-row label {
+      flex: unset;
+      font-weight: normal;
+      margin: 0;
+      cursor: pointer;
+      display: flex;
+      gap: 8px;
+    }
+    .checkbox-label-row input[type="checkbox"] {
+      margin: 0;
+      accent-color: #888;
+    }
   </style>
 </head>
 <body>
   <button id="themeToggle" style="position: fixed; top: 16px; right: 24px; z-index: 10000; padding: 8px 18px; border-radius: 8px; border: none; background: #eee; color: #222; font-size: 1em; cursor: pointer;">🌙</button>
   <div class="main-flex-row">
-    <div class="main-flex-col">
-      <h2 style="font-size: 3em">CUSTOMIZE HABITS</h2>
-      <label for="domain" title="The website where this habit reminder should appear">Website domain:</label>
-      <input type="text" id="domain" placeholder="youtube.com" title="The website where this habit reminder should appear">
-      <label for="habitText">Habit message:</label>
-      <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
-      <br><br>
-      <label>Choose a tracking method:</label>
-      <input type="checkbox" id="toggleMethod" class="toggleCheckbox" />
-      <label for="toggleMethod" class="toggleContainer">
-        <div>Time</div>
-        <div>Repetitions</div>
-      </label>
-      <div id="timeControls">
-        <label>Timer length:</label>
-        <select id="timerMinutes"></select> min
-        <select id="timerSeconds"></select> sec
-      </div>
-      <div id="repsControls" style="display:none;">
-        <label>Repetitions per set:</label>
-        <input type="number" id="repsPerSet" min="1" value="3" style="width:50px;">
-        <label>Number of sets:</label>
-        <input type="number" id="numSets" min="1" value="1" style="width:50px;">
-      </div>
-      <br>
-      <div style="display: flex; align-items: center; gap: 8px; margin: 6px 0;">
-        <input type="checkbox" id="alwaysShow">
-        <label for="alwaysShow" style="margin: 0;">Always show overlay when visiting this site</label>
-      </div>
-      <div id="freqLabel" style="font-size:0.9em; color:#555;">If unchecked, show overlay only once every x minutes/seconds</div>
-      <div id="frequencyControls">
-        <label>Wait time between overlays:</label>
-        <select id="freqMinutes"></select> min
-        <select id="freqSeconds"></select> sec
-      </div>
-      <div id="colorPicker" style="margin: 10px 0;">
-        <span>Choose a colour for this habit:</span><br>
-        <div class="color-btn-row">
-          <button class="color-btn" data-color="#f28b82" title="Choose a colour for this habit" style="background:#f28b82;"></button>
-          <button class="color-btn" data-color="#fbbc04" title="Choose a colour for this habit" style="background:#fbbc04;"></button>
-          <button class="color-btn" data-color="#fff475" title="Choose a colour for this habit" style="background:#fff475;"></button>
-          <button class="color-btn" data-color="#ccff90" title="Choose a colour for this habit" style="background:#ccff90;"></button>
-          <button class="color-btn" data-color="#a7ffeb" title="Choose a colour for this habit" style="background:#a7ffeb;"></button>
-          <button class="color-btn" data-color="#cbf0f8" title="Choose a colour for this habit" style="background:#cbf0f8;"></button>
-          <button class="color-btn" data-color="#aecbfa" title="Choose a colour for this habit" style="background:#aecbfa;"></button>
-          <button class="color-btn" data-color="#d7aefb" title="Choose a colour for this habit" style="background:#d7aefb;"></button>
+    <div class="main-flex-col habit-card" style="max-width: 420px; margin-bottom: 32px;">
+      <h2 style="font-size: 3em; margin-left: 0;">CUSTOMIZE HABITS</h2>
+      <div class="input-section">
+        <div class="section-label section-label-large" style="margin-left:0;">Habit Info</div>
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <label for="domain" title="The website where this habit reminder should appear">Website domain:</label>
+          <input type="text" id="domain" placeholder="youtube.com" title="The website where this habit reminder should appear">
         </div>
-        <input type="hidden" id="habitColor" value="#f28b82">
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <label for="habitText">Habit message:</label>
+          <input type="text" id="habitText" placeholder="Do 5 squats before browsing">
+        </div>
+      </div>
+      <div class="input-section">
+        <div class="section-label section-label-large" style="margin-left:0;">Tracking Method</div>
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <label>Choose a tracking method:</label>
+          <input type="checkbox" id="toggleMethod" class="toggleCheckbox" />
+          <label for="toggleMethod" class="toggleContainer">
+            <div>Time</div>
+            <div>Repetitions</div>
+          </label>
+        </div>
+        <div class="input-row" id="timeControls">
+          <!-- <span class="input-icon"></span> -->
+          <label>Timer length:</label>
+          <select id="timerMinutes"></select> min
+          <select id="timerSeconds"></select> sec
+        </div>
+        <div class="input-row" id="repsControls" style="display:none;">
+          <!-- <span class="input-icon"></span> -->
+          <label>Repetitions per set:</label>
+          <input type="number" id="repsPerSet" min="1" value="3" style="width:50px;">
+          <label>Number of sets:</label>
+          <input type="number" id="numSets" min="1" value="1" style="width:50px;">
+        </div>
+      </div>
+      <div class="input-section">
+        <div class="section-label section-label-large" style="margin-left:0;">Overlay Controls</div>
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <div class="checkbox-label-row">
+            <label for="alwaysShow">
+              <input type="checkbox" id="alwaysShow" style="margin:0 0 0 0;">
+              <label>Always show overlay when visiting this site</label>
+            </label>
+          </div>
+        </div>
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <div id="freqLabel" style="font-size:0.9em; color:#555; flex: 1;">
+            If unchecked, show overlay only once every x minutes/seconds
+          </div>
+        </div>
+        <div class="input-row" id="frequencyControls">
+          <!-- <span class="input-icon"></span> -->
+          <label>Wait time between overlays:</label>
+          <select id="freqMinutes"></select> min
+          <select id="freqSeconds"></select> sec
+        </div>
+      </div>
+      <div class="input-section">
+        <div class="section-label section-label-large" style="margin-left:0;">Colour Picker</div>
+        <div class="input-row">
+          <!-- <span class="input-icon"></span> -->
+          <label style="flex: 1;">Choose a colour for this habit:</label>
+          <div id="colorPicker" style="margin: 10px 0; flex: 2;">
+            <!-- <span>Choose a colour for this habit:</span><br> -->
+            <div class="color-btn-row">
+              <button class="color-btn" data-color="#f28b82" title="Choose a colour for this habit" style="background:#f28b82;"></button>
+              <button class="color-btn" data-color="#fbbc04" title="Choose a colour for this habit" style="background:#fbbc04;"></button>
+              <button class="color-btn" data-color="#fff475" title="Choose a colour for this habit" style="background:#fff475;"></button>
+              <button class="color-btn" data-color="#ccff90" title="Choose a colour for this habit" style="background:#ccff90;"></button>
+              <button class="color-btn" data-color="#a7ffeb" title="Choose a colour for this habit" style="background:#a7ffeb;"></button>
+              <button class="color-btn" data-color="#cbf0f8" title="Choose a colour for this habit" style="background:#cbf0f8;"></button>
+              <button class="color-btn" data-color="#aecbfa" title="Choose a colour for this habit" style="background:#aecbfa;"></button>
+              <button class="color-btn" data-color="#d7aefb" title="Choose a colour for this habit" style="background:#d7aefb;"></button>
+            </div>
+            <input type="hidden" id="habitColor" value="#f28b82">
+          </div>
+        </div>
       </div>
       <button id="save">Save Habit</button>
     </div>
@@ -308,7 +408,6 @@
     <div id="miniCalendar"></div>
   </div>  
   <div>
-    <h2>Streaks</h2>
     <ul id="streakList"></ul>
     <div id="calendarContainer"></div>
   </div>
