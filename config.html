@@ -59,7 +59,10 @@
       background: #f9f9f9;
       min-width: 320px;
       max-width: 400px;
-      flex: 0 0 auto;
+      flex: 1 1 0;
+      height: auto;
+      box-sizing: border-box;
+      align-self: stretch; /* Make the overlay preview stretch to match the height of its flex container */
     }
     body.dark-mode {
       background: #181a1b;
@@ -172,7 +175,7 @@
     .main-flex-row {
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: stretch; /* Make children stretch to the same height */
       gap: 32px;
       width: 100%;
     }
@@ -378,7 +381,6 @@
         <div class="section-label section-label-large" style="margin-left:0;">Colour Picker</div>
         <div class="input-row">
           <!-- <span class="input-icon"></span> -->
-          <label style="flex: 1;">Choose a colour for this habit:</label>
           <div id="colorPicker" style="margin: 10px 0; flex: 2;">
             <!-- <span>Choose a colour for this habit:</span><br> -->
             <div class="color-btn-row">
@@ -397,16 +399,23 @@
       </div>
       <button id="save">Save Habit</button>
     </div>
-    <div class="overlay-preview" id="overlayPreview">
-      <h3 style="font-size: 2em">Overlay Preview</h3>
-      <div id="previewContent"></div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: row; gap: 32px;">
+        <div style="display: flex; flex-direction: column;">
+          <div class="overlay-preview" id="overlayPreview" style="align-self: flex-start;">
+            <h3 style="font-size: 2em">Overlay Preview</h3>
+            <div id="previewContent"></div>
+          </div>
+          <div id="miniCalendar" style="margin-top: 24px;"></div>
+        </div>
+        <div style="min-width: 320px;">
+          <h2 style="font-size: 3em">SAVED HABITS</h2>
+          <ul id="habitList"></ul>
+        </div>
+      </div>
+      <!-- <div id="miniCalendar"></div> --> <!-- Remove this line if present -->
     </div>
   </div>
-  <div>
-    <h2 style="font-size: 3em">SAVED HABITS</h2>
-    <ul id="habitList"></ul>
-    <div id="miniCalendar"></div>
-  </div>  
   <div>
     <ul id="streakList"></ul>
     <div id="calendarContainer"></div>
@@ -414,4 +423,6 @@
   <script src="config.js"></script>
  
 </body>
+</html>
+</html>
 </html>
